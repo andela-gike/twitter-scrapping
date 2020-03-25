@@ -30,6 +30,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('twitter-scrapping app is running!');
+    expect(compiled.querySelector('.toolbar span').textContent).toContain('Angular Twitter');
   });
 });
