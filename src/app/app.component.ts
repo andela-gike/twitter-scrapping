@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'twitter-scrapping';
+  tabHeaders = ['Hashtag search', 'User search']
+  activeTab = this.tabHeaders[0];
 }
