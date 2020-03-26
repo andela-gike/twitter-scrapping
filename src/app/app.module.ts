@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SearchInputComponent } from './search-input/search-input.component';
+import { SearchInputComponent } from './search-container/search-container.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DisplayTableComponent } from './display-table/display-table.component';
 
@@ -18,6 +19,7 @@ import { DisplayTableComponent } from './display-table/display-table.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

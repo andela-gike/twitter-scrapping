@@ -30,7 +30,7 @@ p {
   align-items: center;
   font-weight: 400;
   span{
-    padding-left: 60px;
+    padding-left: 40px;
     font-size: 26px;
   }
 }
@@ -76,16 +76,17 @@ p {
 
 .content {
   display: flex;
-  padding: 52px 60px 0px ;
-  max-width: 1124px;
+  padding-top: 2px;
+  width: 100%;
   flex-direction: column;
 }
 
 .search-body-content {
-  width: 100%;
+  max-width: 100%;
   background-color: #f8f8fa;
-  height: 100%;
-  padding-left: 42px
+  height: 100vh;
+  padding-left: 42px;
+  padding-right: 42px;
 }
 
 .selected-search {

@@ -1,12 +1,24 @@
-<section>
+<section class="table-section">
   <table class="search-display-table">
     <thead>
-      <tr>
-        <th *ngFor="let tableHeader of tableHeaders">
+      <tr class="table-header-row">
+        <th *ngFor="let tableHeader of tableHeaders" class="table-header-column">
           {{tableHeader}}
         </th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+      <tr *ngFor="let data of searchData | paginate: {itemsPerPage: 6, currentPage: page}" class="table-body-row">
+        <td class="table-body-column tweet">{{data.text}}</td>
+        <td class="table-body-column">{{data.likes}}</td>
+        <td class="table-body-column">{{data.replies}}</td>
+        <td class="table-body-column">{{data.retweets}}</td>
+        <td class="table-body-column">{{data.hashtags}}</td>
+        <td class="table-body-column date">{{data.date}}</td>
+      </tr>
+    </tbody>
   </table>
+  <pagination-controls
+    (pageChange)="page = $event" nextLabel=""
+    previousLabel=""></pagination-controls>
 </section>

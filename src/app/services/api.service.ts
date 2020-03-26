@@ -2,63 +2,48 @@ import { Injectable } from '@angular/core';
 import {
   HttpClient, HttpHeaders, HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, scheduled } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Access-Control-Allow-Origin':'*',
-  })
-};
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
+  public headers: HttpHeaders = new
+    HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    })
+    .append('Access-Control-Allow-Origin', '*')
+    .append('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
+
   constructor(private http: HttpClient) { }
-  public baseUrl: string = 'https://cors-anywhere.herokuapp.com/https://anymind-recruitment-python-backend.adasia.biz/';
-  public hashTagSearchResult: any;
-  public userSearchResult: any;
+  public corsResolveUrl = 'https://cors-anywhere.herokuapp.com/'
+  public baseUrl: string = 'https://anymind-recruitment-python-backend.adasia.biz/';
+  public searchResult: any;
 
   /**
    * Make HTTP call to get tweets by hashtags
    */
-  getTweetByHashTagsData(hashTagName: string): Observable<any> {
-    const hashtagsUrl = `${this.baseUrl}/hashtags/${hashTagName}?offset=0`
+  getTweetData(hashTagName: string, searchType: string): Observable<any> {
+    let urlSecondPart = searchType === 'Hashtag' ? 'hashtags' : 'users'
+    const hashtagsUrl =
+      `${this.corsResolveUrl}${this.baseUrl}${urlSecondPart}/${hashTagName}?offset=0`
     if (hashTagName === '') {
-      console.log('Not defined');
+      return of(null)
     } else {
-      // let promise = new Promise((resolve, reject) => {
-      //   this.http.get(hashtagsUrl, httpOptions)
-      //   .toPromise()
-      //   .then(
-      //     res => { // Success
-      //       console.log(res);
-      //       resolve();
-      //     }
-      //   );
-      // });
-      // console.log(promise)
-      return this.http.get(hashtagsUrl, httpOptions).pipe(
+      return this.http.get(hashtagsUrl, { headers: this.headers }).pipe(
         map(response => {
-          console.log(response)
-          this.hashTagSearchResult = response['results']
+          console.log(response['results'])
+          return this.searchResult = response['results']
         })
       )
     }
   }
 
-  /**
-   * Make HTTP call to get tweets by hashtags
-   */
-  getTweetByUserData(userName: string): Observable<any> {
-    const usersUrl = `${this.baseUrl}/users/${userName}?offset=0`
-    return this.http.get(usersUrl);
-  }
-
-  // return the hashtag search response
-  public _searchTweetByHashtag(hashTagName: string) {
-    return this.getTweetByHashTagsData(hashTagName);
+  // return the tweet search response
+  public _searchTweet(searchName: string, searchType: string) {
+    return this.getTweetData(searchName, searchType);
   }
 }

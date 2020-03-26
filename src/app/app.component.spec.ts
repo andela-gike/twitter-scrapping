@@ -6,7 +6,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
       ],
       declarations: [
         AppComponent
@@ -31,5 +31,13 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.toolbar span').textContent).toContain('Angular Twitter');
+  });
+
+  it('should render tab', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    console.log(compiled.querySelector('.item-title a'));
+    expect(compiled.querySelector('.item-title a').textContent).toContain('Hashtag search');
   });
 });

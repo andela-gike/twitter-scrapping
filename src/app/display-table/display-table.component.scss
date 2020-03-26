@@ -1,5 +1,38 @@
 .search-display-table {
   width: 90%;
   text-align: left;
-  margin-top: 30px;
+  background-color: #fff;
+  max-width: 95%;
+  padding: 25px;
+  border-collapse: collapse;
+}
+thead {
+  color: #91949a;
+}
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 12px;
+  font-weight: 500;
+}
+
+.table-header-column {
+  padding-top: 25px
+}
+
+.table-body-column.tweet {
+  width: 300px
+}
+.table-body-column {
+  font-size: 13px;
+}
+.table-body-column.date {
+  width: 320px
+}
+
+.table-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  align-items: center;
+  background-color: #fff;
 }

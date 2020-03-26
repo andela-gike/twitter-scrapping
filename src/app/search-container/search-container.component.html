@@ -1,0 +1,27 @@
+<section>
+  <form formGroup="searchForm">
+    <div class="search-field">
+      <input type="text"
+      placeholder={{placeHolder}}
+      (keyup)="searchName.next($event)" formControlName="search"
+      >
+      <img src="../../assets/images/search_104498.svg" class="search-logo"/>
+  </div>
+  </form>
+  <div *ngIf='loading' class="loading-indicator">
+    <h2>Searching</h2>
+    <div class="ids-ellipsis"><div></div><div></div><div></div><div></div></div>
+  </div>
+  <section class="message-container" *ngIf="searchResult == null && !loading">
+    <img src="../../assets/images/PngItem_3769011.png" class="instruction-logo"/>
+    <h2>Kindly type in the word you would
+      like to search for in the input field above</h2>
+  </section>
+  <app-display-table *ngIf="searchResult != null"
+  [searchData]="paginateElement"></app-display-table>
+
+  <div *ngIf="errorMessage" class="error-container">
+    <h2>Error</h2>
+    <p class="error-text">{{errorMessage}}</p>
+  </div>
+</section>
