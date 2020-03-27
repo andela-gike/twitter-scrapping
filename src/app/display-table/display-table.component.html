@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of searchData | paginate: {itemsPerPage: 6, currentPage: page}" class="table-body-row">
+      <tr *ngFor="let data of searchData | paginate: {itemsPerPage: 10, currentPage: page}" class="table-body-row">
         <td class="table-body-column tweet">{{data.text}}</td>
         <td class="table-body-column">{{data.likes}}</td>
         <td class="table-body-column">{{data.replies}}</td>
@@ -19,6 +19,6 @@
     </tbody>
   </table>
   <pagination-controls
-    (pageChange)="page = $event" nextLabel=""
+    (pageChange)="page = $event" nextLabel="" class="result-page"
     previousLabel=""></pagination-controls>
 </section>

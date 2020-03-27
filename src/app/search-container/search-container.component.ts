@@ -18,7 +18,7 @@ export class SearchInputComponent implements OnInit, OnChanges {
   searchParams: string;
   public loading: boolean;
   public searchName = new Subject<string>()
-  searchResult: any
+  public searchResult: any
   public paginateElement : any
   public errorMessage: any
 
@@ -90,8 +90,7 @@ export class SearchInputComponent implements OnInit, OnChanges {
       let to = changedProp.currentValue;
       this.placeHolder = `Search by ${to.split(' ')[0]}`;
       this.getSelectedSearchType(to.split(' ')[0]);
-      this.searchResult = null
-      this.searchName = new Subject<string>() ;
+      this.searchResult = null;
     }
   }
 

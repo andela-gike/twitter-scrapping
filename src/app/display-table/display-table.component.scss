@@ -36,3 +36,28 @@ th, td {
   align-items: center;
   background-color: #fff;
 }
+
+pagination-controls{
+  align-self: flex-start;
+}
+
+.result-page ::ng-deep .ngx-pagination {
+  margin-left: 0;
+  width: 140px;
+  padding-left: 12px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  li.pagination-previous.disabled {
+    display: none;
+  };
+  li {
+    border: 1px solid #ccc;
+  };
+  .pagination-next a::after, .pagination-next.disabled::after {
+    content: '>';
+    margin-left: 0;
+  }
+}
+
+

@@ -30,14 +30,6 @@ describe('ApiService', () => {
     expect(service).toBeTruthy();
   });
 
-  // it('be able to retrieve result from the API via GET', () => {
-  //   console.log(`${service.corsResolveUrl}${service.baseUrl}users/mercy?offset=0`)
-  //   const request = httpMock
-  //     .expectOne(`${service.baseUrl}users/mercy?offset=0`);
-  //   console.log(request, 'lopo');
-  //   expect(request.request.method).toBe('GET');
-  // });
-
   it('should return expected tweets (HttpClient called once)', () => {
     const dummyTweets = [{
       count: 1,
