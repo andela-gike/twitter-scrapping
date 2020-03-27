@@ -1,10 +1,16 @@
 <section>
   <form formGroup="searchForm">
     <div class="search-field">
-      <input type="text"
+      <input type="text" *ngIf="placeHolder == 'Search by Hashtag'; else elseBlock"
       placeholder={{placeHolder}}
       (keyup)="searchName.next($event)" formControlName="search"
       >
+      <ng-template #elseBlock>
+        <input type="text"
+        placeholder={{placeHolder}}
+        (keyup)="searchName.next($event)" formControlName="search"
+        >
+      </ng-template>
       <img src="../../assets/images/search_104498.svg" class="search-logo"/>
   </div>
   </form>
