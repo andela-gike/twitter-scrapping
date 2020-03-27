@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, logging, ExpectedConditions, $ } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -10,7 +10,47 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('twitter-scrapping app is running!');
+    expect(page.getTitleText()).toEqual('Angular Twitter');
+  });
+
+  it('should display nav tab', () => {
+    page.navigateTo();
+    expect(page.getBodyText()).toEqual([ 'Hashtag search', 'User search' ]);
+  });
+
+  it('should change active nav tab', () => {
+    page.navigateTo();
+    const navTab = page.getNavBar().get(1);
+    navTab.click();
+    expect(page.getCurrentSearchText()).toEqual('User search');
+  });
+
+  it('should display instruction message', () => {
+    page.navigateTo();
+    const instructionImage = page.getInstructionImage()
+    const instructionMessage = page.getInstructionMessage()
+    expect(instructionImage.isPresent()).toBe(true);
+    expect(instructionMessage).toContain('Kindly type in the word')
+  });
+
+  it('should receive value in input field', () => {
+    page.navigateTo();
+    const navTab = page.getNavBar().get(1);
+    navTab.click();
+    const inputField = page.getInputField()
+    inputField.sendKeys('react');
+    expect(inputField.getAttribute('value')).toBe('react');
+  });
+
+  it('should display search message when input has value', async () => {
+    page.navigateTo();
+    const until = ExpectedConditions;
+    const inputField = page.getInputField()
+    await inputField.sendKeys('python');
+    const searchNotify = page.getSearchIndicator();
+    browser.ignoreSynchronization = true;
+    browser.wait(until.presenceOf(page.getSearchIndicator()), 5000, 'not found')
+    expect(searchNotify.getText()).toContain('Searching');
   });
 
   afterEach(async () => {

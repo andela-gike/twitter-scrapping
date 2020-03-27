@@ -1,5 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -13,6 +14,7 @@ describe('AppComponent', () => {
       ],
     }).compileComponents();
   }));
+
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -37,7 +39,15 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    console.log(compiled.querySelector('.item-title a'));
     expect(compiled.querySelector('.item-title a').textContent).toContain('Hashtag search');
+  });
+
+  it('should render change between active tab on click', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const aEl = fixture.debugElement.queryAll(By.css('a'))
+    aEl[1].nativeElement.click();
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('.selected-search p')).nativeElement.textContent).toContain('User search');
   });
 });

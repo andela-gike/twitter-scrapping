@@ -41,4 +41,17 @@ describe('SearchInputComponent', () => {
     fixture.detectChanges();
     expect(inputEl.placeholder).toContain('Other placeholder');
   });
+
+  it('should has input value', () => {
+    fixture.detectChanges();
+    const inputEl = fixture.debugElement.query(By.css('input'));
+    console.log(inputEl.nativeElement.value, 'test');
+    const value = 'trigger input event';
+    inputEl.nativeElement.value = value;
+    inputEl.triggerEventHandler('input', { target: inputEl.nativeElement });
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(inputEl.nativeElement.value).toContain(value);
+    })
+  });
 });
