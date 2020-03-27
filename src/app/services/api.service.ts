@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import {
   HttpClient, HttpHeaders, HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, of, scheduled } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
+/**
+ *  This class is the api service created to get tweet from the external
+ *  api url
+ */
 export class ApiService {
 
   public headers: HttpHeaders = new
@@ -19,6 +23,8 @@ export class ApiService {
     .append('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
 
   constructor(private http: HttpClient) { }
+  // The application was having some cors error, since access the backend
+  // allowed I used an external api to resolve the error
   public corsResolveUrl = 'https://cors-anywhere.herokuapp.com/'
   public baseUrl: string = 'https://anymind-recruitment-python-backend.adasia.biz/';
   public searchResult: any;
