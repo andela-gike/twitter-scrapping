@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpClient, HttpHeaders, HttpErrorResponse
+  HttpClient, HttpHeaders
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -42,7 +42,11 @@ export class ApiService {
       return this.http.get(hashtagsUrl, { headers: this.headers }).pipe(
         map(response => {
           console.log(response['results'])
-          return this.searchResult = response['results']
+          if (response['results'] === undefined) {
+            return this.searchResult = []
+          } else {
+            return this.searchResult = response['results']
+          }
         })
       )
     }

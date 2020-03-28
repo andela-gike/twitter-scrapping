@@ -30,11 +30,13 @@ th, td {
 }
 
 .table-section {
+  background-color: #fff;
+}
+.table-section, .no-result {
   display: flex;
   flex-direction: column;
   margin-top: 40px;
   align-items: center;
-  background-color: #fff;
 }
 
 pagination-controls{
@@ -58,6 +60,15 @@ pagination-controls{
     content: '>';
     margin-left: 0;
   }
+}
+
+.no-result-logo {
+  width: 70%
+}
+
+.no-result h1 {
+  font-size: 2rem;
+  margin-bottom: 2px;
 }
 
 

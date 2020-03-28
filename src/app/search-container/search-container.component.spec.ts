@@ -1,16 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SimpleChange } from '@angular/core';
+import { TestScheduler } from 'rxjs/testing'
+import { Subject, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { SearchInputComponent } from './search-container.component';
 
 describe('SearchInputComponent', () => {
   let component: SearchInputComponent;
   let fixture: ComponentFixture<SearchInputComponent>;
+  let searchName = new Subject<string>();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SearchInputComponent],
-      imports: [ HttpClientTestingModule ],
+      imports: [HttpClientTestingModule],
+      providers: [
+        {provide: SearchInputComponent, searchName: { searchName }}
+      ],
     })
     .compileComponents();
   }));
@@ -33,6 +40,17 @@ describe('SearchInputComponent', () => {
       .textContent).toContain('Kindly type in the word you would like to search for in the input field above');
   });
 
+  it('should render `Search by link ` in input field', () => {
+    component.activeTab = 'Link Search';
+    //directly call ngOnChanges
+    component.ngOnChanges({
+      activeTab: new SimpleChange(null, component.activeTab, true)
+    });
+    fixture.detectChanges();
+    let inputEl = fixture.debugElement.query(By.css('input'))!.nativeElement;
+    expect(inputEl.placeholder).toBe('Search by Link');
+  });
+
   it('should render input field with placeholder', () => {
     const fixture = TestBed.createComponent(SearchInputComponent);
     fixture.detectChanges();
@@ -45,7 +63,6 @@ describe('SearchInputComponent', () => {
   it('should has input value', () => {
     fixture.detectChanges();
     const inputEl = fixture.debugElement.query(By.css('input'));
-    console.log(inputEl.nativeElement.value, 'test');
     const value = 'trigger input event';
     inputEl.nativeElement.value = value;
     inputEl.triggerEventHandler('input', { target: inputEl.nativeElement });

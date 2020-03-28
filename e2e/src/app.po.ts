@@ -40,4 +40,8 @@ export class AppPage {
   getTableContainer(): ElementFinder {
     return element(by.tagName('app-display-table'));
   }
+
+  getTableHeader(): Promise<string> {
+    return this.getTableContainer().all(by.tagName('th')).get(0).getText() as Promise<string>;
+  }
 }

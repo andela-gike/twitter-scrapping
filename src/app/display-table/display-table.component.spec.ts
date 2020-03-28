@@ -19,18 +19,31 @@ describe('DisplayTableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DisplayTableComponent);
     component = fixture.componentInstance;
+    component.searchData = [{
+      account: {fullname: "Nadeem Mirbahar", href: "/nadeemmirbahar", id: 181061991},
+      date: "Mar 27, 2020",
+      hashtags:["#StayHomeSaveLives", "#mercy"],
+      likes: 6,
+      replies: "-",
+      retweets: "-",
+      text: "#StayHomeSaveLives ↵Please show #mercy towards #hu..."
+    }]
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component).toBeTruthy();
+    });
   });
 
 
   it('should render tab', () => {
-    const fixture = TestBed.createComponent(DisplayTableComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.table-header-row th').textContent).toContain('Tweet');
+    fixture.whenStable().then(() => {
+      const compiled = fixture.nativeElement;
+      expect(compiled.querySelector('.table-header-row th').textContent).toContain('Tweet');
+    });
   });
 });

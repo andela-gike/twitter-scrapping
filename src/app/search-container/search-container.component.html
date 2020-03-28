@@ -18,13 +18,13 @@
     <h2>Searching</h2>
     <div class="ids-ellipsis"><div></div><div></div><div></div><div></div></div>
   </div>
+  <app-display-table *ngIf="searchResult != null"
+  [searchData]="paginateElement"></app-display-table>
   <section class="message-container" *ngIf="searchResult == null && !loading">
     <img src="../../assets/images/PngItem_3769011.png" class="instruction-logo"/>
     <h2>Kindly type in the word you would
       like to search for in the input field above</h2>
   </section>
-  <app-display-table *ngIf="searchResult != null"
-  [searchData]="paginateElement"></app-display-table>
 
   <div *ngIf="errorMessage" class="error-container">
     <h2>Error</h2>

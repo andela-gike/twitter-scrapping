@@ -1,4 +1,4 @@
-<section class="table-section">
+<section class="table-section" *ngIf="searchData.length > 0; else elseBlock">
   <table class="search-display-table">
     <thead>
       <tr class="table-header-row">
@@ -22,3 +22,11 @@
     (pageChange)="page = $event" nextLabel="" class="result-page"
     previousLabel=""></pagination-controls>
 </section>
+
+<ng-template #elseBlock>
+  <section class="no-result">
+    <img src="../../assets/images/notfound.png" class="no-result-logo"/>
+    <h1>Sorry! No results found :(</h1>
+    <h4>Try changing the filter or search term</h4>
+  </section>
+</ng-template>

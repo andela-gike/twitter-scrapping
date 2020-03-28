@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging, ExpectedConditions, $ } from 'protractor';
+import { browser, logging, ExpectedConditions, element, by} from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -51,6 +51,18 @@ describe('workspace-project App', () => {
     browser.ignoreSynchronization = true;
     browser.wait(until.presenceOf(page.getSearchIndicator()), 5000, 'not found')
     expect(searchNotify.getText()).toContain('Searching');
+  });
+
+  it('should display search message when input has value', async () => {
+    page.navigateTo();
+    const navTab = page.getNavBar().get(1);
+    navTab.click();
+    const until = ExpectedConditions;
+    const inputField = page.getInputField()
+    await inputField.sendKeys('Aaron');
+    browser.ignoreSynchronization = true;
+    browser.wait(until.presenceOf(page.getTableContainer()), 5000, 'not found')
+    expect(page.getTableHeader()).toContain('Tweet');
   });
 
   afterEach(async () => {
