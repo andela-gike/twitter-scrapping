@@ -53,7 +53,7 @@ describe('workspace-project App', () => {
     expect(searchNotify.getText()).toContain('Searching');
   });
 
-  it('should display search message when input has value', async () => {
+  it('should display table value when search result returns', async () => {
     page.navigateTo();
     const navTab = page.getNavBar().get(1);
     navTab.click();
@@ -61,7 +61,8 @@ describe('workspace-project App', () => {
     const inputField = page.getInputField()
     await inputField.sendKeys('Aaron');
     browser.ignoreSynchronization = true;
-    browser.wait(until.presenceOf(page.getTableContainer()), 5000, 'not found')
+    browser.wait(until.presenceOf(page.getTableContainer()), 6000, 'not found')
+    console.log(page.getTableContainer())
     expect(page.getTableHeader()).toContain('Tweet');
   });
 

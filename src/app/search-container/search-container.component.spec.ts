@@ -71,4 +71,24 @@ describe('SearchInputComponent', () => {
       expect(inputEl.nativeElement.value).toContain(value);
     })
   });
+
+  // it('should emit value after keyup and debounce time', fakeAsync(() => {
+  //   fixture.detectChanges();
+  //   // const componentMock: SearchInputComponent = jasmine.createSpyObj('SearchInputComponent', ['search'])
+  //   // componentMock.searchName;
+  //   // fixture.detectChanges();
+  // //  console.log(new Subject<string>('truu'))
+  // //   const spy = TestBed.get(SearchInputComponent);
+  // //   spy.searchName = of('kilo')
+  //   spyOn(SearchInputComponent, 'search').and.returnValue(false)
+  //   console.log(component.searchName)
+  //   const input = fixture.debugElement.query(By.css('input'));
+  //   input.nativeElement.value = 'Q';
+  //   input.nativeElement.dispatchEvent(
+  //     new KeyboardEvent('keyup', { bubbles: true, cancelable: true, key: 'Q', shiftKey: true }),
+  //   );
+  //   tick(500);
+  //   fixture.detectChanges();
+  //   expect(component.search()).toHaveBeenCalled();
+  // }));
 });

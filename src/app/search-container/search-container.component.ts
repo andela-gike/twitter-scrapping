@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, throwError } from 'rxjs';
 import {
-  map, debounceTime, distinctUntilChanged, switchMap, catchError
+  map, debounceTime, distinctUntilChanged, switchMap, catchError, mergeAll
 } from 'rxjs/operators';
 import { ApiService } from '../services/api.service';
 
@@ -12,8 +12,7 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./search-container.component.scss']
 })
 export class SearchInputComponent implements OnInit, OnChanges {
-
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) { } // this creates and initializes the api service in this file
 
   searchParams: string;
   public loading: boolean;
@@ -26,13 +25,6 @@ export class SearchInputComponent implements OnInit, OnChanges {
     search: new FormControl('', Validators.required)
   })
 
-  private formatDate(dateString: string) {
-    return new Date(dateString).
-      toLocaleString('en-us', {
-        month: 'short', year: 'numeric', day: 'numeric'
-      })
-  }
-
   private truncateString(tweetString: string, maxNumber: number) {
     return tweetString.length > maxNumber ?
       tweetString.slice(0, maxNumber) + "..." : tweetString;
@@ -44,9 +36,17 @@ export class SearchInputComponent implements OnInit, OnChanges {
         return evt.target.value
       }),
       debounceTime(500),
-      distinctUntilChanged(),
+      distinctUntilChanged(), // every the user input the same search term  it will be passed down one preventing unneccessary api call
+      // map(term => {
+      //   this.loading = true;
+      //   return this.apiService._searchTweet(term, this.searchType)
+      // }),
+      // mergeAll(), The problem of outgoing request to the api does not get resolved with this method
+      // with the mergeAll function if during the time the user was typing he changes his mind as to what I want to search for the result
+      // that will come back will be stale. switchAll operator resolves this by not just flattening our action by merging all the
+      // result but we are switching to the last unfinished query in our flow
       switchMap(term => {
-        this.loading = true;
+        this.loading = true; // instead of adding the is loading here the tap operator can be used to set loading to true as well
         return this.apiService._searchTweet(term, this.searchType)
       }),
       catchError((error) => {
@@ -61,7 +61,7 @@ export class SearchInputComponent implements OnInit, OnChanges {
         const formattedValue = value != null ? value.map((val) => {
           return {
             account: val.account,
-            date: this.formatDate(val.date),
+            date: val.date,
             hashtags: val.hashtags.slice(0, 2),
             likes: val.likes == 0 ? '-' : val.likes,
             replies: val.replies == 0 ? '-' : val.replies,
@@ -94,4 +94,7 @@ export class SearchInputComponent implements OnInit, OnChanges {
     }
   }
 
+  ngOnDestroy() {
+    this.searchName.unsubscribe()
+  }
 }

@@ -21,6 +21,10 @@ import { DisplayTableComponent } from './display-table/display-table.component';
     HttpClientModule,
     NgxPaginationModule
   ],
+  // dependency injection, it instantiates the service wherever it is called
+  // using the new operator will tightly couple the service to a specific class
+  // implementation. it involves injecting or providing a dependency of a class to its constructor
+  // the providers makes it possible for angular to create a single instance of that module
   providers: [],
   bootstrap: [AppComponent]
 })
